@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssassinGO", "AssassinGO.csproj", "{08188B66-DD5E-78BB-9D23-5DAD72FB6EE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssassinGO.Plugins", "AssassinGO.Plugins.csproj", "{C4B7EEAE-F849-15B5-3FE7-CA9DDC7BC1FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssassinGO.Editor", "AssassinGO.Editor.csproj", "{DE095FFD-ADDF-84F1-8D0A-C3D3C8586E68}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08188B66-DD5E-78BB-9D23-5DAD72FB6EE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08188B66-DD5E-78BB-9D23-5DAD72FB6EE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08188B66-DD5E-78BB-9D23-5DAD72FB6EE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08188B66-DD5E-78BB-9D23-5DAD72FB6EE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4B7EEAE-F849-15B5-3FE7-CA9DDC7BC1FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4B7EEAE-F849-15B5-3FE7-CA9DDC7BC1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4B7EEAE-F849-15B5-3FE7-CA9DDC7BC1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4B7EEAE-F849-15B5-3FE7-CA9DDC7BC1FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE095FFD-ADDF-84F1-8D0A-C3D3C8586E68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE095FFD-ADDF-84F1-8D0A-C3D3C8586E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE095FFD-ADDF-84F1-8D0A-C3D3C8586E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE095FFD-ADDF-84F1-8D0A-C3D3C8586E68}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
