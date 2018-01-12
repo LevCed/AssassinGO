@@ -110,6 +110,7 @@ public class Node : MonoBehaviour
         return FindNeighborAt(NeighborNodes, dir);
     }
 
+
     public void InitNode()
     {
         // if the Node has not been activated yet...

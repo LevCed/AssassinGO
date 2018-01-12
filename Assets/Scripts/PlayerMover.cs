@@ -24,6 +24,7 @@ public class PlayerMover : MonoBehaviour
 
     PlayerCompass m_playerCompass;
 
+
     // Use this for initialization
     void Awake()
     {
@@ -55,7 +56,7 @@ public class PlayerMover : MonoBehaviour
     // coroutine used to move the player
     IEnumerator MoveRoutine(Vector3 destinationPos, float delayTime)
     {
-        if(m_playerCompass != null)
+        if (m_playerCompass != null)
         {
             m_playerCompass.ShowArrows(false);
         }
@@ -95,7 +96,7 @@ public class PlayerMover : MonoBehaviour
 
         UpdateBoard();
 
-        if(m_playerCompass != null)
+        if (m_playerCompass != null)
         {
             m_playerCompass.ShowArrows(true);
         }

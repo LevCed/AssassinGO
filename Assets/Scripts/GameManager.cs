@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StartLevelRoutine()
     {
         Debug.Log("SETUP LEVEL");
-        if(setupEvent != null)
+        if (setupEvent != null)
         {
             setupEvent.Invoke();
         }
