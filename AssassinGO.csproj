@@ -342,10 +342,13 @@
     <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
     <Compile Include="Assets\Scripts\Board.cs" />
     <Compile Include="Assets\Scripts\EndScreen.cs" />
+    <Compile Include="Assets\Scripts\EnnemyManager.cs" />
+    <Compile Include="Assets\Scripts\EnnemyMover.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GraphicMover.cs" />
     <Compile Include="Assets\Scripts\LevelLabel.cs" />
     <Compile Include="Assets\Scripts\Link.cs" />
+    <Compile Include="Assets\Scripts\Mover.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
     <Compile Include="Assets\Scripts\ObjExporter.cs" />
     <Compile Include="Assets\Scripts\Obstacle.cs" />
