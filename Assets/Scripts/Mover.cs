@@ -9,6 +9,8 @@ public class Mover : MonoBehaviour
     // where the player is currently headed 
     public Vector3 destination;
 
+    public bool faceDestination = false;
+
     // is the player currently moving?
     public bool isMoving = false;
 
@@ -18,11 +20,15 @@ public class Mover : MonoBehaviour
     // how fast we move
     public float moveSpeed = 1.5f;
 
+    // time to rotate to face destination
+    public float rotateTime = 0.5f;
+
     // delay to use before any call to iTween
     public float iTweenDelay = 0f;
 
     protected Board m_board;
 
+    protected Node m_currentNode;
 
     // Use this for initialization
     protected virtual void Awake()
@@ -33,18 +39,23 @@ public class Mover : MonoBehaviour
 
     protected virtual void Start()
     {
-        
+        UpdateCurrentNode();
     }
 
     // public method to invole the MoveRoutine
     public void Move(Vector3 destinationPos, float delayTime = 0.25f)
     {
+        if(isMoving)
+        {
+            return;
+        }
+
         // only move if the destination is at a valid Node
         if (m_board != null)
         {
             Node targetNode = m_board.FindNodeAt(destinationPos);
 
-            if (targetNode != null && m_board.PlayerNode.LinkedNodes.Contains(targetNode))
+            if (targetNode != null && m_currentNode.LinkedNodes.Contains(targetNode))
             {
                 // start the coroutine MoveRoutine
                 StartCoroutine(MoveRoutine(destinationPos, delayTime));
@@ -61,6 +72,13 @@ public class Mover : MonoBehaviour
 
         // set the destination to the destinationPos being passed into the coroutine
         destination = destinationPos;
+
+        // optional turn to face destination
+        if(faceDestination)
+        {
+            FaceDestination();
+            yield return new WaitForSeconds(0.25f);
+        }
 
         // pause the coroutine for a brief periof
         yield return new WaitForSeconds(delayTime);
@@ -88,6 +106,8 @@ public class Mover : MonoBehaviour
 
         // we are not moving
         isMoving = false;
+
+        UpdateCurrentNode();
 
     }
 
@@ -117,5 +137,29 @@ public class Mover : MonoBehaviour
     {
         Vector3 newPosition = transform.position + new Vector3(0f, 0f, -Board.spacing);
         Move(newPosition, 0);
+    }
+
+    protected void UpdateCurrentNode()
+    {
+        if(m_board != null)
+        {
+            m_currentNode = m_board.FindNodeAt(transform.position);
+        }
+    }
+
+    private void FaceDestination()
+    {
+        Vector3 relativePosition = destination - transform.position;
+
+        Quaternion newRotation = Quaternion.LookRotation(relativePosition, Vector3.up);
+
+        float newY = newRotation.eulerAngles.y;
+
+        iTween.RotateTo(gameObject, iTween.Hash(
+            "y", newY,
+            "delay", 0f,
+            "easetype", easeType,
+            "time", rotateTime
+            ));
     }
 }

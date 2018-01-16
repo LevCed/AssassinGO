@@ -15,6 +15,7 @@ public class PlayerMover : Mover
 
     protected override void Start()
     {
+        base.Start();
         UpdateBoard();
     }
 
