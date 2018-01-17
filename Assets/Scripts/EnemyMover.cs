@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyMover : Mover
 {
+    public float standTime = 1f;
+
     protected override void Awake()
     {
         base.Awake();
@@ -17,5 +19,20 @@ public class EnemyMover : Mover
 
     }
 
+    public void MoveOneTurn()
+    {
+        Stand();
+    }
+    
+    private void Stand()
+    {
+        StartCoroutine(StandRoutine());
+    }
+
+    private IEnumerator StandRoutine()
+    {
+        yield return new WaitForSeconds(standTime);
+        base.finishMovementEvent.Invoke();
+    }
 
 }

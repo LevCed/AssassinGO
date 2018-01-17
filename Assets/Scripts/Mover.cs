@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Mover : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class Mover : MonoBehaviour
     protected Board m_board;
 
     protected Node m_currentNode;
+
+    public UnityEvent finishMovementEvent;
 
     // Use this for initialization
     protected virtual void Awake()

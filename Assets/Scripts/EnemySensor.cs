@@ -32,10 +32,10 @@ public class EnemySensor : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        UpdateSensor();
-    }
+    //private void Update()
+    //{
+    //    UpdateSensor();
+    //}
 
 
 }
