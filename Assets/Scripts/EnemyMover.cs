@@ -5,7 +5,8 @@ using UnityEngine;
 public enum MovementType
 {
     Stationary,
-    Patrol
+    Patrol,
+    Spinner
 }
 
 public class EnemyMover : Mover
@@ -38,6 +39,9 @@ public class EnemyMover : Mover
                 break;
             case MovementType.Stationary:
                 Stand();
+                break;
+            case MovementType.Spinner:
+                Spin();
                 break;
         }
         Stand();
@@ -94,4 +98,20 @@ public class EnemyMover : Mover
         base.finishMovementEvent.Invoke();
     }
 
+    private void Spin()
+    {
+        StartCoroutine(SpinRoutine());
+    }
+
+    private IEnumerator SpinRoutine()
+    {
+        Vector3 localForward = new Vector3(0f, 0f, Board.spacing);
+        destination = transform.TransformVector(localForward * -1f) + transform.position;
+
+        FaceDestination();
+
+        yield return new WaitForSeconds(rotateTime);
+
+        base.finishMovementEvent.Invoke();
+    }
 }
