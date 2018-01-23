@@ -19,7 +19,7 @@ public class Mover : MonoBehaviour
     public iTween.EaseType easeType = iTween.EaseType.easeInOutExpo;
 
     // how fast we move
-    public float moveSpeed = 1.5f;
+    public float moveSpeed = 4f;
 
     // time to rotate to face destination
     public float rotateTime = 0.5f;
@@ -150,7 +150,7 @@ public class Mover : MonoBehaviour
         }
     }
 
-    private void FaceDestination()
+    protected void FaceDestination()
     {
         Vector3 relativePosition = destination - transform.position;
 
