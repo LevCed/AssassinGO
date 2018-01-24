@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent startLevelEvent;
     public UnityEvent playLevelEvent;
     public UnityEvent endLevelEvent;
+    public UnityEvent loseLevelEvent;
 
     void Awake()
     {
@@ -132,6 +133,26 @@ public class GameManager : MonoBehaviour
             // check for the lose condition
         }
         // Debug.Log("WIN! ==========================");
+    }
+    public void LoseLevel()
+    {
+        StartCoroutine(LoseLevelRoutine());
+    }
+
+    private IEnumerator LoseLevelRoutine()
+    {
+        m_isGameOver = true;
+
+        if(loseLevelEvent != null)
+        {
+            loseLevelEvent.Invoke();
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        Debug.Log("LOSE! ==================");
+
+        RestartLevel();
     }
 
     // end stage after gameplay is complete
