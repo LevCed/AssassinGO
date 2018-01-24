@@ -9,20 +9,20 @@ using System.Linq;
 public enum Turn
 {
     Player,
-    Enemy,
+    Enemy
 }
 
 public class GameManager : MonoBehaviour
 {
     // reference to the GameBoard
-    private Board m_board;
+    Board m_board;
 
     // reference to PlayerManager
-    private PlayerManager m_player;
+    PlayerManager m_player;
 
-    private List<EnemyManager> m_enemies;
+    List<EnemyManager> m_enemies;
 
-    private Turn m_currentTurn = Turn.Player;
+    Turn m_currentTurn = Turn.Player;
     public Turn CurrentTurn { get { return m_currentTurn; } }
 
     // has the user pressed start?
@@ -51,14 +51,13 @@ public class GameManager : MonoBehaviour
     public UnityEvent endLevelEvent;
     public UnityEvent loseLevelEvent;
 
+
     void Awake()
     {
         // populate Board and PlayerManager components
         m_board = Object.FindObjectOfType<Board>().GetComponent<Board>();
         m_player = Object.FindObjectOfType<PlayerManager>().GetComponent<PlayerManager>();
-
-        EnemyManager[] enemies = GameObject.FindObjectsOfType<EnemyManager>() as EnemyManager[];
-        m_enemies = enemies.ToList();
+        m_enemies = (Object.FindObjectsOfType<EnemyManager>() as EnemyManager[]).ToList();
     }
 
     void Start()
@@ -93,6 +92,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("START LEVEL");
         m_player.playerInput.InputEnabled = false;
+
         while (!m_hasLevelStarted)
         {
             //show start screen
@@ -134,23 +134,31 @@ public class GameManager : MonoBehaviour
         }
         // Debug.Log("WIN! ==========================");
     }
+
     public void LoseLevel()
     {
         StartCoroutine(LoseLevelRoutine());
     }
 
-    private IEnumerator LoseLevelRoutine()
+    // trigger the "lose" condition
+    IEnumerator LoseLevelRoutine()
     {
+    	// game is over
         m_isGameOver = true;
 
-        if(loseLevelEvent != null)
+        // wait for a short delay then...
+        yield return new WaitForSeconds(1.5f);
+
+        // ...invoke loseLoveEvent
+        if (loseLevelEvent != null)
         {
             loseLevelEvent.Invoke();
         }
 
+        // pause for two seconds and then restart the level
         yield return new WaitForSeconds(2f);
 
-        Debug.Log("LOSE! ==================");
+        Debug.Log("LOSE! =============================");
 
         RestartLevel();
     }
@@ -202,20 +210,24 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
-    private void PlayPlayerTurn()
+
+    // switch to Player turn
+    void PlayPlayerTurn()
     {
         m_currentTurn = Turn.Player;
         m_player.IsTurnComplete = false;
 
+        // allow Player to move
     }
 
-    public void PlayEnemyTurn()
+    // switch to Enemy turn
+    void PlayEnemyTurn()
     {
         m_currentTurn = Turn.Enemy;
 
-        foreach(EnemyManager enemy in m_enemies)
+        foreach (EnemyManager enemy in m_enemies)
         {
-            if(enemy != null)
+            if (enemy != null)
             {
                 enemy.IsTurnComplete = false;
 
@@ -224,7 +236,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool IsEnemyTurnComplete()
+    // have all of the enemies completed their turns?
+    bool IsEnemyTurnComplete()
     {
         foreach (EnemyManager enemy in m_enemies)
         {
@@ -233,25 +246,27 @@ public class GameManager : MonoBehaviour
                 return false;
             }
         }
+
         return true;
     }
 
+    // switch between Player and Enemy Turns
     public void UpdateTurn()
     {
-        if (CurrentTurn == Turn.Player && m_player != null)
+        if (m_currentTurn == Turn.Player && m_player != null)
         {
             if (m_player.IsTurnComplete)
             {
-                PlayPlayerTurn();
-            }
-        }
-        else if (CurrentTurn == Turn.Enemy)
-        {
-            if(IsEnemyTurnComplete())
-            {
                 PlayEnemyTurn();
             }
-            
+
+        }
+        else if (m_currentTurn == Turn.Enemy)
+        {
+            if (IsEnemyTurnComplete())
+            {
+				PlayPlayerTurn(); 
+            }
         }
     }
 }

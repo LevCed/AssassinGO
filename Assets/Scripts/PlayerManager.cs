@@ -1,20 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMover))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerDeath))]
 public class PlayerManager : TurnManager
 {
 	// reference to PlayerMover and PlayerInput components
 	public PlayerMover playerMover;
     public PlayerInput playerInput;
 
+    public UnityEvent deathEvent;
+
     protected override void Awake()
     {
         base.Awake();
 
-        // cache references to PlayerMover and PlayerInput
+		// cache references to PlayerMover and PlayerInput
 		playerMover = GetComponent<PlayerMover>();
         playerInput = GetComponent<PlayerInput>();
 
@@ -24,8 +28,8 @@ public class PlayerManager : TurnManager
 
     void Update()
     {
-		// if the player is currently moving, ignore user input
-		if (playerMover.isMoving || m_gameManager.CurrentTurn != Turn.Player)
+		// if the player is currently moving or if it's not the Player's turn, ignore user input
+        if (playerMover.isMoving || m_gameManager.CurrentTurn != Turn.Player)
         {
             return;
         }
@@ -55,6 +59,14 @@ public class PlayerManager : TurnManager
             {
                 playerMover.MoveForward();
             }
+        }
+    }
+
+    public void Die()
+    {
+        if (deathEvent != null)
+        {
+            deathEvent.Invoke();
         }
     }
 }
